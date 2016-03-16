@@ -106,7 +106,10 @@ public class UserRegistration extends AppCompatActivity {
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Talker talkee = new Talker(userName,password,gender,18,email);
+               // Talker talkee = new Talker(userName,password,gender,18,email);
+
+                Talker talkee = new Talker("Jcan","Granger2","Male", 10,"cante008@cougars.csusm.edu");
+
                 TalkerSingleton.get(getApplicationContext()).addTalker(talkee);
 
                 Intent i = new Intent(UserRegistration.this,Login.class);

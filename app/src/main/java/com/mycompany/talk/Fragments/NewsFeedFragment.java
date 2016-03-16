@@ -20,8 +20,6 @@ public class NewsFeedFragment extends ListFragment {
 
     private ArrayList<Talker> mTalkers;
 
-    private TextView tUserName,tAge,tGender,tEmail;
-
     @Override
     public void onResume(){
         super.onResume();
