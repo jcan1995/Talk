@@ -19,8 +19,8 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/phone_number"
-        android:id="@+id/etPhoneNumber"
+        android:hint="User Name"
+        android:id="@+id/etUserName"
         />
     <EditText
         android:layout_width="match_parent"
