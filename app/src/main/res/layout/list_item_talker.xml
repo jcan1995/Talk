@@ -12,7 +12,7 @@
         android:id="@+id/text_userName"
         android:layout_alignParentLeft="true"
 
-        />
+        android:padding="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:text="Gender"
         android:layout_alignParentRight="true"
 
-        />
+        android:padding="16dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,12 +29,14 @@
         android:text="Age"
         android:layout_below="@id/text_userName"
 
-        />
+        android:padding="16dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_email"
         android:layout_below="@id/text_age"
 
-        android:text="Email"/>
+        android:text="Email"
+        android:textIsSelectable="false"
+        android:padding="16dp"/>
 </RelativeLayout>

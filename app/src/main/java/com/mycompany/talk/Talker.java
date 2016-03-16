@@ -12,7 +12,7 @@ public class Talker {
     private UUID mId;
     private String userName;
     private String Gender;
-    private int age;
+    private String age;
     private String email;
     private LatLng coordinates;
     private String Password;
@@ -34,7 +34,7 @@ public class Talker {
         this.coordinates = coordinates;
     }
 
-    public Talker(String name,String password, String sex, int age, String email){
+    public Talker(String name,String password, String sex, String age, String email){
         this.Password = password;
         userName = name;
         Gender = sex;
@@ -67,11 +67,11 @@ public class Talker {
         Gender = gender;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
