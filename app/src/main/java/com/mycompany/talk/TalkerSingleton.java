@@ -18,7 +18,7 @@ public class TalkerSingleton {
     private TalkerSingleton(Context appContext){
         mAppContext = appContext;
         mTalkers = new ArrayList<Talker>();
-        //Add talkers???
+
     }
 
     public ArrayList<Talker> getTalkers(){
@@ -43,9 +43,11 @@ public class TalkerSingleton {
         mTalkers.add(t);
     }
 
-    public void removeTalker(Talker t){
-        mTalkers.remove(t);
-
+    public void removeTalker(UUID id) {
+        for (Talker c : mTalkers) {
+            if (c.getId().equals(id))
+                mTalkers.remove(c);
+        }
     }
 }
 

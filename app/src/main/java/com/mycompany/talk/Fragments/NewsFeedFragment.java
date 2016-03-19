@@ -57,6 +57,7 @@ public class NewsFeedFragment extends ListFragment{
        // Intent i = new Intent(getActivity(),UserView.class);
       //  startActivity(i);
     }
+
     private class TalkerAdapter extends ArrayAdapter<Talker>{
 
         public TalkerAdapter(ArrayList<Talker> talker){
