@@ -35,7 +35,7 @@ public Context mContext;
     protected String doInBackground(String... params) {
 
         //IP used is default ip address by android to connect to localhost
-        String register_url = "http://192.168.1.146/talkappdb/register.php";
+        String register_url = "http://192.168.43.85/talkappdb/register.php";
         String login_url = "http://10.0.2.2/talkappdb/login.php";
 
         String method = params[0];
@@ -46,8 +46,7 @@ public Context mContext;
             String gender = params[4];
             String age = params[5];
             String email = params[6];
-            String id = params[7];
-            String coordinates = params[8];
+
 
             try {
                 URL url = new URL(register_url);
@@ -56,14 +55,13 @@ public Context mContext;
                 httpURLConnection.setDoOutput(true);
                 OutputStream OS = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS,"UTF-8"));
-                String data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(name,"UTF-8")+"&"+
+
+                String data = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name,"UTF-8")+"&"+
                         URLEncoder.encode("user_name", "UTF-8") + "=" + URLEncoder.encode(user_name,"UTF-8")+"&"+
                         URLEncoder.encode("user_pass", "UTF-8") + "=" + URLEncoder.encode(user_pass,"UTF-8")+"&"+
                         URLEncoder.encode("gender", "UTF-8") + "=" + URLEncoder.encode(gender,"UTF-8")+"&"+
                         URLEncoder.encode("age", "UTF-8") + "=" + URLEncoder.encode(age,"UTF-8")+"&"+
-                        URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email,"UTF-8")+"&"+
-                        URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id,"UTF-8")+"&"+
-                        URLEncoder.encode("coordinates", "UTF-8") + "=" + URLEncoder.encode(coordinates,"UTF-8");
+                        URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email,"UTF-8");
 
                         bufferedWriter.write(data);
                         bufferedWriter.flush();
