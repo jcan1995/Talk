@@ -37,16 +37,13 @@ public class UserRegistration extends AppCompatActivity {
                 gender = Gender.getText().toString();
                 age = Age.getText().toString();
 
-                String method = "regsiter";
+                String method = "register";
                 BackgroundTask backgroundTask = new BackgroundTask(getApplicationContext());
                 backgroundTask.execute(method,name,userName,password,gender,age,email);
 
                 finish();
                 //Talker talkee = new Talker(userName,password,gender,age,email);
                 //TalkerSingleton.get(getApplicationContext()).addTalker(talkee);
-
-                //Intent i = new Intent(UserRegistration.this, Login.class);
-                //startActivity(i);
             }
         });
     }

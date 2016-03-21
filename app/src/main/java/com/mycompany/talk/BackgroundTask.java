@@ -2,6 +2,7 @@ package com.mycompany.talk;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedWriter;
@@ -34,12 +35,14 @@ public Context mContext;
     @Override
     protected String doInBackground(String... params) {
 
-        //IP used is default ip address by android to connect to localhost
-        String register_url = "http://192.168.43.85/talkappdb/register.php";
+        Log.d("doInBackground","Inside doInBackground method");
+        String register_url= "http://192.168.43.85/talkappdb/register.php";
         String login_url = "http://10.0.2.2/talkappdb/login.php";
 
         String method = params[0];
         if(method.equals("register")){
+            Log.d("ifstatement","Inside if statement");
+
             String name = params[1];
             String user_name = params[2];
             String user_pass = params[3];
