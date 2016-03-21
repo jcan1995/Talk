@@ -46,6 +46,7 @@ public class MainAppActivity extends AppCompatActivity {
             }
         });
     }
+
     /**********************ACTIVITY OVERRIDE METHODS*************************/
 
     @Override

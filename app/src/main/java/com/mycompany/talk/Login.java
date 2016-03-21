@@ -16,7 +16,7 @@ public class Login extends AppCompatActivity {
 private final String TAG = "LoginAcivity";
     EditText etName, etPass;
     Button bLogin, bReg;
-
+    String login_name,login_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,13 @@ private final String TAG = "LoginAcivity";
             bLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Login.this, MainAppActivity.class);
-                    startActivity(intent);
+                    login_name = etName.getText().toString();
+                    login_pass = etPass.getText().toString();
+                    String method = "login";
+                    BackgroundTask backgroundTask = new BackgroundTask(getApplicationContext());
+                    backgroundTask.execute(method,login_name,login_pass);
+                    //Intent intent = new Intent(Login.this, MainAppActivity.class);
+                   // startActivity(intent);
                 }
             });
 
