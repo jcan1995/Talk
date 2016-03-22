@@ -1,10 +1,16 @@
 package com.mycompany.talk;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,17 +28,27 @@ import java.net.URLEncoder;
  * Created by joshua on 3/19/2016.
  */
 public class BackgroundTask extends AsyncTask<String,Void,String> {
-public Context mContext;
-AlertDialog mAlertDialog;
-    BackgroundTask(Context c){
+    public Context mContext;
+
+    AlertDialog.Builder builder;
+    Activity mActivity;
+    ProgressDialog mProgressDialog;
+
+
+    public BackgroundTask(Context c){
         this.mContext = c;
+        mActivity = (Activity) c;
     }
 
     @Override
     protected void onPreExecute() {
-        mAlertDialog = new AlertDialog.Builder(mContext).create();
-        mAlertDialog.setTitle("Login information.....");
-        super.onPreExecute();
+        builder = new AlertDialog.Builder(mActivity);
+        mProgressDialog = new ProgressDialog(mContext);
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setMessage("Connecting to server...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
     }
 
 
@@ -61,6 +77,8 @@ AlertDialog mAlertDialog;
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
                 OutputStream OS = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS,"UTF-8"));
 
@@ -76,12 +94,24 @@ AlertDialog mAlertDialog;
                         bufferedWriter.close();
                         OS.close();
                 InputStream IS = httpURLConnection.getInputStream();
-                IS.close();
-                return "Registration success...";
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(IS));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line = "";
+                while((line = bufferedReader.readLine())!= null){
+                    stringBuilder.append(line+"\n");
+                }
+               //IS.close();
+                httpURLConnection.disconnect();
+                Thread.sleep(5000);
+
+                return stringBuilder.toString().trim();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -138,13 +168,43 @@ AlertDialog mAlertDialog;
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if(result.equals("Registration success...")) {
-            Toast.makeText(mContext, result, Toast.LENGTH_LONG).show();
-        }
-        else {
-            mAlertDialog.setMessage(result);
-            mAlertDialog.show();
+    protected void onPostExecute(String json) {
+        try {
+            mProgressDialog.dismiss();
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray jsonArray = jsonObject.getJSONArray("server_response");
+            JSONObject JO = jsonArray.getJSONObject(0);
+            String code = JO.getString("code");
+            String message = JO.getString("message");
+            if(code.equals("reg_true")) {
+                showDialog("Registration success.",message,code);
+            }
+
+            else if(code.equals("reg_false")){
+                showDialog("Registration failed.",message,code);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
+
+    public void showDialog(String title,String message, String code){
+
+        builder.setTitle(title);
+        if(code.equals("reg_true")||code.equals("reg_false")){
+            builder.setMessage(message);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    mActivity.finish();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+
+    }
+
 }
