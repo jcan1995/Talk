@@ -41,8 +41,8 @@ AlertDialog mAlertDialog;
     protected String doInBackground(String... params) {
 
         Log.d("doInBackground","Inside doInBackground method");
-        String register_url= "http://192.168.43.85/talkappdb/register.php";
-        String login_url = "http://192.168.43.85/talkappdb/login.php";
+        String register_url= "http://192.168.0.4/talkappdb/register.php";
+        String login_url = "http://192.168.0.4/talkappdb/login.php";
 
         String method = params[0];
         if(method.equals("register")){
