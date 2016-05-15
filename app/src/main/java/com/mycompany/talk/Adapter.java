@@ -12,9 +12,11 @@ import com.mycompany.talk.Fragments.UserProfileFragment;
  * Created by joshua on 12/28/2015.
  */
 public class Adapter extends FragmentPagerAdapter {
+
     private String fragments[] = { "News Feed","Map","Profile"};
 
     public Adapter(FragmentManager fm) {
+
         super(fm);
     }
 

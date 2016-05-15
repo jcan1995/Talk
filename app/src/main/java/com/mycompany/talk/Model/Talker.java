@@ -1,12 +1,13 @@
-package com.mycompany.talk;
+package com.mycompany.talk.Model;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.UUID;
 
 /**
- * Created by joshua on 12/17/2015.
+ * Created by joshua on 5/12/2016.
  */
+
 public class Talker {
 
     private UUID mId;
@@ -34,7 +35,7 @@ public class Talker {
         this.coordinates = coordinates;
     }
 
-    public Talker(String name,String password, String sex, String age, String email){
+    public Talker(String name, String password, String sex, String age, String email){
         this.Password = password;
         userName = name;
         Gender = sex;

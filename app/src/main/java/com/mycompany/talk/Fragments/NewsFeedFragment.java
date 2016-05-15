@@ -9,9 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mycompany.talk.Model.Talker;
+import com.mycompany.talk.Model.TalkerSingleton;
 import com.mycompany.talk.R;
-import com.mycompany.talk.Talker;
-import com.mycompany.talk.TalkerSingleton;
 
 import java.util.ArrayList;
 

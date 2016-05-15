@@ -1,4 +1,5 @@
 package com.mycompany.talk.Fragments;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,7 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,16 +22,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycompany.talk.R;
 
+import java.net.URISyntaxException;
+
 
 public class MapFragment extends Fragment implements OnMapReadyCallback{
 
 SupportMapFragment mSupportMapFragment;
 int radius = 20;
 private GoogleMap maps;
+
 LatLng mLatLng;
 LocationManager mLocationManager;
 LocationListener mLocationListener;
-
+private Button bUpdate;
 
 
 @Override
@@ -35,8 +42,29 @@ public void onStart(){
     super.onStart();
 }
 
+
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://localhost");
+
+
+            }catch (URISyntaxException e) {
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        mSocket.connect();
+
+    }
+
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+    View v = inflater.inflate(R.layout.fragment_map,container,true);
 
     mSupportMapFragment = SupportMapFragment.newInstance();
     android.support.v4.app.FragmentManager sfm = getFragmentManager();
@@ -48,6 +76,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         sfm.beginTransaction().hide(mSupportMapFragment).commit();
     else
         sfm.beginTransaction().show(mSupportMapFragment).commit();
+
+
+   // bUpdate = (Button)v.findViewById(R.id.bUpdate);
 
     mLocationListener = new LocationListener() {
         @Override
@@ -92,13 +123,19 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
     mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,mLocationListener);
     //Need more precise coordinates..............
-    return inflater.inflate(R.layout.fragment_map, container, false);
+    return v;
 }
 
 @Override
 public void onMapReady(GoogleMap map) {
     maps = map;
 }
+
+    private void attemptSend(){
+
+
+    }
+
 
 @Override
 public void onResume(){
